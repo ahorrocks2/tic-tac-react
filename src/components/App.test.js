@@ -6,10 +6,12 @@ import Board from './Board';
 
 export const players = {
   X: {
-    name: 'Jane'
+    name: 'Jane',
+    gamesWon: 0
   },
   O: {
-    name: 'John'
+    name: 'John',
+    gamesWon: 0
   }
 }
 

@@ -14,10 +14,12 @@ export const initialState = {
   turn: O,
   players: {
     X: {
-      name: ''
+      name: '',
+      gamesWon: 0
     },
     O: {
-      name: ''
+      name: '',
+      gamesWon: 0
     }
   }
 };
