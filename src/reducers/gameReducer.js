@@ -11,11 +11,32 @@ export const initialState = {
   won: undefined,
   wonLine: undefined,
   draw: false,
-  turn: O
+  turn: O,
+  players: {
+    X: {
+      name: ''
+    },
+    O: {
+      name: ''
+    }
+  }
 };
 
 export const gameReducer = (state, action) => {
   switch (action.type) {
+    case 'ADD_PLAYERS':
+      const { playerNameX, playerNameO } = action;
+      return {
+        ...state,
+        players: {
+          X: {
+            name: playerNameX
+          },
+          O: {
+            name: playerNameO
+          }
+        }
+      }
     case 'ADD_SYMBOL':
       const {symbol, row, position} = action;
       const newState = _.cloneDeep(state);

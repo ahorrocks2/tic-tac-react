@@ -5,6 +5,12 @@ export const addSymbol = (row, position, symbol) => ({
   position
 });
 
+export const addPlayers = (playerNameX, playerNameO) => ({
+  type: 'ADD_PLAYERS',
+  playerNameX,
+  playerNameO
+});
+
 export const startAgain = () => ({
   type: 'START_AGAIN'
 });

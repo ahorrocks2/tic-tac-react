@@ -1,6 +1,15 @@
 import { initialState, gameReducer } from './gameReducer';
 import { X, O } from '../symbols/symbols';
 
+const players = {
+  X: {
+    name: 'Jane'
+  },
+  O: {
+    name: 'John'
+  }
+};
+
 it('Should add a symbol at given position and change turn', () => {
   const state = {
     board: {
@@ -11,7 +20,8 @@ it('Should add a symbol at given position and change turn', () => {
     won: undefined,
     wonLine: undefined,
     draw: false,
-    turn: O
+    turn: O,
+    players
   };
   const nextState = gameReducer(state, {type: 'ADD_SYMBOL', symbol: O, row: 0, position: 0});
   expect(nextState.board[0]).toEqual([O, '', '']);
@@ -28,7 +38,8 @@ it('Should set "won" symbol when a winning line is set', () => {
     won: undefined,
     wonLine: undefined,
     draw: false,
-    turn: X
+    turn: X,
+    players
   };
   const nextState = gameReducer(state, {type: 'ADD_SYMBOL', symbol: X, row: 2, position: 2});
   expect(nextState.won).toEqual(X);
@@ -44,8 +55,16 @@ it('Should reset the state to initial', () => {
     won: undefined,
     wonLine: undefined,
     draw: false,
-    turn: X
+    turn: X,
+    players
   };
   const nextState = gameReducer(state, {type: 'START_AGAIN'});
   expect(nextState).toEqual(initialState);
+});
+
+it('Should add player names to the state', () => {
+  const nextState = gameReducer(initialState, { type: 'ADD_PLAYERS', playerNameX: players.X.name, playerNameO: players.O.name });
+  
+  expect(nextState.players.X.name).toEqual('Jane');
+  expect(nextState.players.O.name).toEqual('John');  
 });
