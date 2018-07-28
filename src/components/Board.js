@@ -5,6 +5,7 @@ import XSymbol from './XSymbol';
 import OSymbol from './OSymbol';
 import { X, O } from '../symbols/symbols';
 import { addSymbol, startAgain } from '../actions/actions';
+import { validatePlayerNames } from '../logic/logic';
 import { connect } from 'react-redux';
 
 class Board extends Component {
@@ -26,27 +27,33 @@ class Board extends Component {
     const wonClass   = this.props.won ? ` won-${this.props.wonLine}` : '';
     const drawClass  = this.props.draw ? ' draw' : '';
     const boardClass = 'board' + wonClass + drawClass;
+    const hasPlayerNames = validatePlayerNames(this.props.players.X.name, this.props.players.O.name).length > 0 ? false : true;
+
     return (
-      <div className={boardClass}>
-        {
-          Object.keys(this.props.board)
-            .map(rowIndex => {
-              return (
-                <div className={`row row${rowIndex}`} key={rowIndex}>
-                  {
-                    this.props.board[rowIndex].map((symbol, positon) => {
-                      return this.getSymbol(rowIndex, positon, symbol);
-                    })
-                  }
-                </div>
-              );
-            })
-        }
-        {
-          this.props.won || this.props.draw ?
-          <p className="startAgain" onClick={this.props.startAgain}>
-            Click to start again!
-          </p> : false
+      <div>
+        { hasPlayerNames &&
+          <div className={boardClass}>
+            {
+              Object.keys(this.props.board)
+                .map(rowIndex => {
+                  return (
+                    <div className={`row row${rowIndex}`} key={rowIndex}>
+                      {
+                        this.props.board[rowIndex].map((symbol, positon) => {
+                          return this.getSymbol(rowIndex, positon, symbol);
+                        })
+                      }
+                    </div>
+                  );
+                })
+            }
+            {
+              this.props.won || this.props.draw ?
+              <p className="startAgain" onClick={this.props.startAgain}>
+                Click to start again!
+              </p> : false
+            }
+          </div>
         }
       </div>
     );
@@ -60,12 +67,13 @@ Board.propTypes = {
   draw: PropTypes.bool.isRequired,
   wonLine: PropTypes.string,
   addSymbol: PropTypes.func.isRequired,
-  startAgain: PropTypes.func.isRequired
+  startAgain: PropTypes.func.isRequired,
+  players: PropTypes.object.isRequired
 };
 
 export default connect(
-  ({board, turn, won, draw, wonLine}) => ({
-    board, turn, won, draw, wonLine
+  ({board, turn, won, draw, wonLine, players}) => ({
+    board, turn, won, draw, wonLine, players
   }),
   (dispatch) => {
     return {
