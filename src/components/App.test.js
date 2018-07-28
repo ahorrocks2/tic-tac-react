@@ -4,6 +4,15 @@ import App from './App';
 import Result from './Result';
 import Board from './Board';
 
+export const players = {
+  X: {
+    name: 'Jane'
+  },
+  O: {
+    name: 'John'
+  }
+}
+
 it('Should render an App component with Result and Board components', () => {
   const wrapper = shallow(<App />).dive();
   expect(wrapper.find(Result).length).toBe(1);

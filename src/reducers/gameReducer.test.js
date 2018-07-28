@@ -1,14 +1,7 @@
 import { initialState, gameReducer } from './gameReducer';
 import { X, O } from '../symbols/symbols';
+import { players } from '../components/App.test';
 
-const players = {
-  X: {
-    name: 'Jane'
-  },
-  O: {
-    name: 'John'
-  }
-};
 
 it('Should add a symbol at given position and change turn', () => {
   const state = {

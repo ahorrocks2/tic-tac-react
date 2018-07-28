@@ -1,15 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { PureResult as Result } from './Result';
-
-const players = {
-  X: {
-    name: 'Jane'
-  },
-  O: {
-    name: 'John'
-  }
-};
+import { players } from './App.test';
 
 it('Should render the Result component with message about current turn', () => {
   const wrapper = shallow(<Result turn={'o'} draw={false} players={players} />);
