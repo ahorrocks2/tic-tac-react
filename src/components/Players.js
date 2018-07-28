@@ -8,7 +8,8 @@ class Players extends Component {
   state = {
     X: "",
     O: "",
-    errors: []
+    errors: [],
+    formVisible: true
   };
 
   handleChange = (e, player) => {
@@ -26,7 +27,7 @@ class Players extends Component {
       this.setState({ ...this.state, errors });
     } else {
       this.props.addPlayers(this.state.X, this.state.O);
-      this.setState({ X: "", O: "", errors: [] });
+      this.setState({ X: '', O: '', errors: [], formVisible: false });
     }
   };
 
@@ -35,30 +36,31 @@ class Players extends Component {
 
     return (
       <div>
-        <form onSubmit={e => this.handleSubmit(e)}>
-          <div>
-            <label>X's Name: </label>
-            <input
-              type="text"
-              id="playerNameX"
-              value={X}
-              onChange={e => this.handleChange(e, "X")}
-            />
-          </div>
-          <div>
-            <label>O's Name: </label>
-            <input
-              type="text"
-              id="playerNameO"
-              value={O}
-              onChange={e => this.handleChange(e, "O")}
-            />
-          </div>
-          <button type="submit">Start Game</button>
-        </form>
-
+        { this.state.formVisible && 
+          <form onSubmit={e => this.handleSubmit(e)}>
+            <div>
+              <label>X's Name: </label>
+              <input
+                type='text'
+                id='playerNameX'
+                value={X}
+                onChange={e => this.handleChange(e, 'X')}
+              />
+            </div>
+            <div>
+              <label>O's Name: </label>
+              <input
+                type='text'
+                id='playerNameO'
+                value={O}
+                onChange={e => this.handleChange(e, 'O')}
+              />
+            </div>
+            <button type='submit'>Start Game</button>
+          </form>
+        }
         <div>
-          {errors.map(e => ( <p key={errors.indexOf(e)} className="errorMessage">{e}</p> ))}
+          {errors.map(e => ( <p key={errors.indexOf(e)} className='errorMessage'>{e}</p> ))}
         </div>
       </div>
     );
