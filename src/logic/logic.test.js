@@ -1,5 +1,19 @@
 import { resultForSymbol } from './logic';
 import { X, O } from '../symbols/symbols';
+import { validatePlayerNames } from '../components/Players';
+
+const nameValidationCases = [
+  { X: "", O: "", errors: 2 },
+  { X: "", O: "John", errors: 1 },
+  { X: "Jane", O: "", errors: 1 },
+  { X: "Jane", O: "John", errors: 0 }
+];
+
+nameValidationCases.forEach(c => {
+  it("Should validate the player names are not empty", () => {
+    expect(validatePlayerNames(c.X, c.O).length).toEqual(c.errors);
+  });
+});
 
 it('Should indicate no winning result', () => {
   const board = {

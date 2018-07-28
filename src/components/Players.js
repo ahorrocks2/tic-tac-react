@@ -2,20 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { addPlayers } from "../actions/actions";
-
-const validateNames = (nameX, nameO) => {
-  let errors = [];
-
-  if (nameX === "") {
-    errors.push("Player X must have a name.");
-  }
-
-  if (nameO === "") {
-    errors.push("Player O must have a name.");
-  }
-
-  return errors;
-};
+import { validatePlayerNames } from "../logic/logic";
 
 class Players extends Component {
   state = {
@@ -33,7 +20,7 @@ class Players extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    const errors = validateNames(this.state.X, this.state.O);
+    const errors = validatePlayerNames(this.state.X, this.state.O);
 
     if (errors.length > 0) {
       this.setState({ ...this.state, errors });
@@ -95,4 +82,4 @@ export default connect(
   }
 )(Players);
 
-export { Players, validateNames };
+export { Players, validatePlayerNames };

@@ -1,3 +1,17 @@
+export const validatePlayerNames = (playerNameX, playerNameO) => {
+  let errors = [];
+
+  if (playerNameX === "") {
+    errors.push("Player X must have a name.");
+  }
+
+  if (playerNameO === "") {
+    errors.push("Player O must have a name.");
+  }
+
+  return errors;
+};
+
 const countInRow = (symbol, row) => row.filter(el => el === symbol).length;
 const hasWonInRow = (symbol, row) => countInRow(symbol, row) === 3;
 export const hasThreatInRow = (symbol, row) => countInRow(symbol, row) === 2;

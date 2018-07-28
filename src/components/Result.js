@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import { validatePlayerNames } from '../logic/logic';
 
 class Result extends Component {
   render () {
     let result = ''; 
-    
-    if(this.props.players.O.name === '' || this.props.players.X.name === '') {
+    let { X, O } = this.props.players;
+
+    if(validatePlayerNames(X.name, O.name).length > 0) {
       result = `Please enter player names to begin the game.`
     } else {
       if (this.props.turn) {
@@ -35,12 +37,7 @@ Result.propTypes = {
   won: PropTypes.string,
   turn: PropTypes.string.isRequired,
   draw: PropTypes.bool.isRequired,
-  players: PropTypes.shape({
-    X: PropTypes.shape({
-      name: PropTypes.string}), 
-    O: PropTypes.shape({
-      name: PropTypes.string})
-  }).isRequired
+  players: PropTypes.object.isRequired
 };
 
 export default connect(
