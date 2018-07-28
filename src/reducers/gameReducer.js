@@ -73,7 +73,7 @@ export const gameReducer = (state, action) => {
 
       return newState;
     case 'START_AGAIN':
-      return initialState;
+      return { ...initialState, players: state.players };
     default:
       return state;
   }

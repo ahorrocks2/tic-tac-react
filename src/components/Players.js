@@ -6,8 +6,8 @@ import { validatePlayerNames } from "../logic/logic";
 
 class Players extends Component {
   state = {
-    X: "",
-    O: "",
+    X: this.props.players.X.name,
+    O: this.props.players.O.name,
     errors: [],
     formVisible: true
   };

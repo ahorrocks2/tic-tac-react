@@ -52,7 +52,7 @@ it('Should reset the state to initial', () => {
     players
   };
   const nextState = gameReducer(state, {type: 'START_AGAIN'});
-  expect(nextState).toEqual(initialState);
+  expect(nextState).toEqual({...initialState, players: state.players});
 });
 
 it('Should add player names to the state', () => {
