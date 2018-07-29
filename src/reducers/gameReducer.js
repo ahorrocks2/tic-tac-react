@@ -1,5 +1,6 @@
 import { X, O } from '../symbols/symbols';
 import { resultForSymbol } from '../logic/logic';
+import { getGamesWonForPlayer } from '../api/index';
 import * as _ from 'lodash';
 
 export const initialState = {
@@ -28,14 +29,19 @@ export const gameReducer = (state, action) => {
   switch (action.type) {
     case 'ADD_PLAYERS':
       const { playerNameX, playerNameO } = action;
+      const gamesWonX = getGamesWonForPlayer(playerNameX);
+      const gamesWonO = getGamesWonForPlayer(playerNameO);
+
       return {
         ...state,
         players: {
           X: {
-            name: playerNameX
+            name: playerNameX,
+            gamesWon: gamesWonX
           },
           O: {
-            name: playerNameO
+            name: playerNameO,
+            gamesWon: gamesWonO
           }
         }
       }
