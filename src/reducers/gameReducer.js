@@ -1,6 +1,6 @@
 import { X, O } from '../symbols/symbols';
 import { resultForSymbol } from '../logic/logic';
-import { getGamesWonForPlayer } from '../api/index';
+import { getGamesWonForPlayer, postLeaderboard } from '../api/index';
 import * as _ from 'lodash';
 
 export const initialState = {
@@ -52,19 +52,27 @@ export const gameReducer = (state, action) => {
 
       const xResult = resultForSymbol(X, newState.board);
       const oResult = resultForSymbol(O, newState.board);
+      let winner; 
 
       if (xResult.won) {
         newState.won = X;
         newState.wonLine = xResult.line;
+        winner = state.players.X.name;
       }
 
       if (oResult.won) {
         newState.won = O;
         newState.wonLine = oResult.line;
+        winner = state.players.O.name;
       }
 
       if (!newState.won) {
         newState.turn = newState.turn === O ? X : O;
+      } else {
+        postLeaderboard(state.players.X.name, state.players.O.name, winner); 
+        
+        const newScore = getGamesWonForPlayer(winner);
+        newState.players[newState.won.toUpperCase()].gamesWon = newScore;
       }
 
       const boardIsFull = [

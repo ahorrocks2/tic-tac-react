@@ -25,3 +25,19 @@ export const getGamesWonForPlayer = async (name) => {
   }
 }
 
+export const postLeaderboard = async (playerNameX, playerNameO, winner) => {
+  try {
+    const requestBody = {
+      'player_x_name': playerNameX.toUpperCase(),
+      'player_o_name': playerNameO.toUpperCase(),
+      'winner': winner.toUpperCase()
+    };
+
+    const response = await makeApiRequest(leaderboardUrl, 'POST', requestBody);
+    console.log(response);
+    return response;
+  } catch(e) {
+    throw new Error('Something went wrong posting a leaderboard!');
+  }
+};
+
