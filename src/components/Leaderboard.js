@@ -5,19 +5,27 @@ import { getScoresForLeaderboard } from "../actions/actions";
 
 class Leaderboard extends Component {
   state = {
-    scores: []
+    leaderBoardPuller: null
+  }
+  
+  componentDidMount = () => {
+    const puller = setInterval(() => this.props.getScores(), 10000);
+    this.setState({ leaderBoardPuller: puller });
   }
 
-  componentDidMount = () => {
-    const scores = this.props.getScores();
-    this.setState({ scores });
+  componentWillUnmount() {
+    clearInterval(this.state.leaderBoardPuller);
   }
 
   render() {
     return (
       <div>
-        <p>LEADERBOARD</p>
-        { this.state.scores }
+        <h3>LEADERBOARD</h3>
+        <div>
+          {
+            this.props.scores.map(x => <div key={x.name}>{x.name !== 'DRAW' && `${x.name} - Wins: ${x.wins}`}</div>)
+          }
+        </div>
       </div>
     );
   }
