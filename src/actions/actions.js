@@ -26,10 +26,11 @@ export const getScoresForLeaderboard = () => {
   return dispatch => {
     return getLeaderboards()
       .then(leaderboards => {
-        const scores = leaderboards.map(lb => {
-          const wins = leaderboards.filter(l => l.winner === lb.winner);
+        const names = [...new Set(leaderboards.map(lb => lb.winner))]
+        const scores = names.map(name => {
+          const wins = leaderboards.filter(lb => lb.winner === name);
           return {
-            name: lb.winner,
+            name,
             wins: wins.length
           }
         });
