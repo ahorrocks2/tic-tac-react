@@ -23,7 +23,7 @@ class Leaderboard extends Component {
         <h3>LEADERBOARD</h3>
         <div>
           {
-            this.props.scores.map(x => <div key={x.name}>{x.name !== 'DRAW' && `${x.name} - Wins: ${x.wins}`}</div>)
+            this.props.scores.map(x => <div key={x.name}>{x.name !== 'DRAW' && `${x.name} - Wins: ${x.wins}, Losses: ${x.losses}, Draws: ${x.draws}`}</div>)
           }
         </div>
       </div>
