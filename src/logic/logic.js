@@ -1,3 +1,14 @@
+export const countWins = leaderboards => {
+  const winnerNames = [...new Set(leaderboards.map(lb => lb.winner))];
+
+  return winnerNames.map(name => {
+    return {
+      name,
+      wins: leaderboards.filter(lb => lb.winner === name).length
+    }
+  });
+};
+
 export const validatePlayerNames = (playerNameX, playerNameO) => {
   let errors = [];
 

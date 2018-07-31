@@ -1,5 +1,18 @@
-import { resultForSymbol, validatePlayerNames } from './logic';
+import { resultForSymbol, validatePlayerNames, countWins } from './logic';
 import { X, O } from '../symbols/symbols';
+
+it('Should count the number of wins for unique leaderboard names', () => {
+  const leaderboards = [
+    {  'winner': 'JANE' },
+    {  'winner': 'JOHN' },
+    {  'winner': 'JOHN' },
+    {  'winner': 'JOHN' }
+  ];
+
+  const scores = countWins(leaderboards);
+  expect(scores.find(s => s.name === 'JANE').wins).toEqual(1);
+  expect(scores.find(s => s.name === 'JOHN').wins).toEqual(3);
+});
 
 const nameValidationCases = [
   { X: "", O: "", errors: 2 },

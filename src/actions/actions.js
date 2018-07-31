@@ -1,4 +1,5 @@
 import { getLeaderboards } from '../api/index';
+import { countWins } from '../logic/logic';
 
 export const addSymbol = (row, position, symbol) => ({
   type: 'ADD_SYMBOL',
@@ -26,16 +27,7 @@ export const getScoresForLeaderboard = () => {
   return dispatch => {
     return getLeaderboards()
       .then(leaderboards => {
-        const names = [...new Set(leaderboards.map(lb => lb.winner))]
-        const scores = names.map(name => {
-          const wins = leaderboards.filter(lb => lb.winner === name);
-          return {
-            name,
-            wins: wins.length
-          }
-        });
-      
-        console.log(scores);
+        const scores = countWins(leaderboards);
         dispatch(getScores(scores));
       });
   }
