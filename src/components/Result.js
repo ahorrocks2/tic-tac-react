@@ -41,9 +41,9 @@ Result.propTypes = {
 };
 
 export default connect(
-  ({won, turn, draw, players}) => ({
-    won, turn, draw, players
-  })
-)(Result);
+  (state) => {
+    let { won, turn, draw, players } = state.gameReducer;
+    return { won, turn, draw, players }
+  })(Result);
 
 export {Result as PureResult};

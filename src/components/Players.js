@@ -72,9 +72,10 @@ Players.propTypes = {
 };
 
 export default connect(
-  ({ players }) => ({
-    players
-  }),
+  (state) => {
+    let { players } = state.gameReducer;
+    return { players }
+  },
   dispatch => {
     return {
       addPlayers(playerNameX, playerNameO) {
@@ -84,4 +85,4 @@ export default connect(
   }
 )(Players);
 
-export { Players, validatePlayerNames };
+export { Players };

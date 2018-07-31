@@ -25,7 +25,7 @@ export const initialState = {
   }
 };
 
-export const gameReducer = (state, action) => {
+export const gameReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'ADD_PLAYERS':
       const { playerNameX, playerNameO } = action;
@@ -70,7 +70,7 @@ export const gameReducer = (state, action) => {
         newState.turn = newState.turn === O ? X : O;
       } else {
         postLeaderboard(state.players.X.name, state.players.O.name, winner); 
-        
+
         const newScore = getGamesWonForPlayer(winner);
         newState.players[newState.won.toUpperCase()].gamesWon = newScore;
       }

@@ -72,9 +72,10 @@ Board.propTypes = {
 };
 
 export default connect(
-  ({board, turn, won, draw, wonLine, players}) => ({
-    board, turn, won, draw, wonLine, players
-  }),
+  (state) => {
+    let { board, turn, won, draw, wonLine, players } = state.gameReducer;
+    return { board, turn, won, draw, wonLine, players }
+  },
   (dispatch) => {
     return {
       addSymbol (rowIndex, position, symbol) {
