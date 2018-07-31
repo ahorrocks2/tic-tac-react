@@ -2,8 +2,8 @@ const rp = require('request-promise');
 
 const leaderboardUrl = `https://enigmatic-atoll-42973.herokuapp.com/api/leaderboards`;
 
-const makeApiRequest = async (uri, method, body = {}) => {
-  const response = await rp({
+const makeApiRequest = (uri, method, body = {}) => {
+  const response = rp({
     uri,
     method,
     body,
@@ -11,6 +11,16 @@ const makeApiRequest = async (uri, method, body = {}) => {
   });
   
   return response;
+};
+
+export const getLeaderboards = async () => {
+  try {
+    const response = await makeApiRequest(leaderboardUrl, 'GET');
+   
+    return response;
+  } catch(e) {
+    throw new Error('Something went wrong getting leaderboards!', e);
+  }
 };
 
 export const getGamesWonForPlayer = async (name) => {
@@ -23,7 +33,7 @@ export const getGamesWonForPlayer = async (name) => {
   } catch(e) {
     throw new Error('Something went wrong counting games won!', e);
   }
-}
+};
 
 export const postLeaderboard = async (playerNameX, playerNameO, winner) => {
   try {
@@ -34,7 +44,7 @@ export const postLeaderboard = async (playerNameX, playerNameO, winner) => {
     };
 
     const response = await makeApiRequest(leaderboardUrl, 'POST', requestBody);
-    console.log(response);
+
     return response;
   } catch(e) {
     throw new Error('Something went wrong posting a leaderboard!');
