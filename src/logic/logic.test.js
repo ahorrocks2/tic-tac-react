@@ -1,5 +1,24 @@
-import { resultForSymbol, validatePlayerNames, countWins } from './logic';
+import { resultForSymbol, validatePlayerNames, countWins, determineResultOfMove, determineGameState } from './logic';
 import { X, O } from '../symbols/symbols';
+import { players } from '../components/App.test';
+
+it('Should determine the new state of the game after a move that does not end the game', () => {
+  const xResult = { won: false };
+  const oResult = { won: false };
+  const nobodyWins = determineGameState(xResult, oResult, players, null);
+  
+  expect(nobodyWins.won).toBe(undefined);
+});
+
+it('Should determine the new state of the game after a move that does ends the game', () => {
+  const xResult = { won: false };
+  const oResult = { won: true, wonLine: 'row2', winner: 'o' };
+  const updateFn = () => jest.fn();
+
+  const somebodyWins = determineGameState(xResult, oResult, players, updateFn);
+  
+  expect(somebodyWins.winner).toBe('John');
+});
 
 it('Should count the number of wins for unique leaderboard names', () => {
   const leaderboards = [

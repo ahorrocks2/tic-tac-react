@@ -1,3 +1,33 @@
+import { X, O } from '../symbols/symbols';
+import { getGamesWonForPlayer } from '../api/index';
+
+
+export const determineGameState = (xResult, oResult, players, updateLeaderboard) => {
+  let game = {
+    won: undefined,
+    wonLine: undefined,
+    winner: undefined
+  };
+
+  if (xResult.won) {
+    game.won = X;
+    game.wonLine = xResult.line;
+    game.winner = players.X.name;
+  }
+
+  if (oResult.won) {
+    game.won = O;
+    game.wonLine = oResult.line;
+    game.winner = players.O.name;
+  }
+  
+  if (game.won) {
+    updateLeaderboard()(players.X.name, players.O.name, game.winner);
+  }
+
+  return game;
+}
+
 export const countWins = leaderboards => {
   const winnerNames = [...new Set(leaderboards.map(lb => lb.winner))];
 
