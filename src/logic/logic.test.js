@@ -1,6 +1,5 @@
-import { resultForSymbol } from './logic';
+import { resultForSymbol, validatePlayerNames } from './logic';
 import { X, O } from '../symbols/symbols';
-import { validatePlayerNames } from '../components/Players';
 
 const nameValidationCases = [
   { X: "", O: "", errors: 2 },

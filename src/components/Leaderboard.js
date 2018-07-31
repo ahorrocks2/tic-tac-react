@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getScoresForLeaderboard } from "../actions/actions";
 
-
 class Leaderboard extends Component {
   state = {
     scores: []
