@@ -6,21 +6,22 @@ import OSymbol from './OSymbol';
 import { X, O } from '../symbols/symbols';
 import { addSymbol, startAgain } from '../actions/actions';
 import { validatePlayerNames } from '../logic/logic';
+import { postLeaderboard as updateResults } from '../api/index';
 import { connect } from 'react-redux';
 
 class Board extends Component {
-  addSymbol (rowIndex, position, symbol) {
-    !this.props.won && this.props.addSymbol(rowIndex, position, symbol);
+  addSymbol (updateFn, rowIndex, position, symbol) {
+    !this.props.won && this.props.addSymbol(rowIndex, position, symbol, updateFn);
   }
 
-  getSymbol(rowIndex, position, symbol) {
+  getSymbol(rowIndex, position, symbol, updateFn) {
     if (symbol === X) {
       return <XSymbol key={position} position={position} />;
     }
     if (symbol === O) {
       return <OSymbol key={position} position={position} />;
     }
-    return <BlankSymbol key={position} addSymbol={this.addSymbol.bind(this, rowIndex, position)} turn={this.props.turn} />;
+    return <BlankSymbol key={position} addSymbol={this.addSymbol.bind(this, updateFn, rowIndex, position)} turn={this.props.turn} />;
   }
 
   render() {
@@ -40,7 +41,7 @@ class Board extends Component {
                     <div className={`row row${rowIndex}`} key={rowIndex}>
                       {
                         this.props.board[rowIndex].map((symbol, positon) => {
-                          return this.getSymbol(rowIndex, positon, symbol);
+                          return this.getSymbol(rowIndex, positon, symbol, updateResults);
                         })
                       }
                     </div>
@@ -78,8 +79,8 @@ export default connect(
   },
   (dispatch) => {
     return {
-      addSymbol (rowIndex, position, symbol) {
-        dispatch(addSymbol(rowIndex, position, symbol));
+      addSymbol (rowIndex, position, symbol, updateFn) {
+        dispatch(addSymbol(rowIndex, position, symbol, updateFn));
       },
       startAgain () {
         dispatch(startAgain());

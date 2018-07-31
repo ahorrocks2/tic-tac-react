@@ -2,7 +2,6 @@ import { initialState, gameReducer } from './gameReducer';
 import { X, O } from '../symbols/symbols';
 import { players } from '../components/App.test';
 
-
 it('Should add a symbol at given position and change turn', () => {
   const state = {
     board: {
@@ -22,6 +21,9 @@ it('Should add a symbol at given position and change turn', () => {
 });
 
 it('Should set "won" symbol when a winning line is set', () => {
+  const innerApiCallSpy = jest.fn();
+  const updateLeaderboardSpy = jest.fn((x, y, z) => innerApiCallSpy);
+  
   const state = {
     board: {
       0: [X,  O, ''],
@@ -34,8 +36,12 @@ it('Should set "won" symbol when a winning line is set', () => {
     turn: X,
     players
   };
-  const nextState = gameReducer(state, {type: 'ADD_SYMBOL', symbol: X, row: 2, position: 2});
+  const nextState = gameReducer(state, {type: 'ADD_SYMBOL', symbol: X, row: 2, position: 2, updateLeaderboard: updateLeaderboardSpy});
   expect(nextState.won).toEqual(X);
+
+  expect(updateLeaderboardSpy.call.length).toBe(1);
+  expect(innerApiCallSpy.call.length).toBe(1);  
+  expect(innerApiCallSpy).toHaveBeenCalledWith('Jane', 'John', 'Jane');
 });
 
 it('Should reset the state to initial', () => {

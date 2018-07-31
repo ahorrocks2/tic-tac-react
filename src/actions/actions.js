@@ -1,11 +1,12 @@
 import { getLeaderboards } from '../api/index';
 import { countWins } from '../logic/logic';
 
-export const addSymbol = (row, position, symbol) => ({
+export const addSymbol = (row, position, symbol, updateLeaderboard) => ({
   type: 'ADD_SYMBOL',
   symbol,
   row,
-  position
+  position,
+  updateLeaderboard
 });
 
 export const addPlayers = (playerNameX, playerNameO) => ({

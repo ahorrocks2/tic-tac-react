@@ -1,6 +1,6 @@
 import { X, O } from '../symbols/symbols';
-import { resultForSymbol } from '../logic/logic';
-import { getGamesWonForPlayer, postLeaderboard } from '../api/index';
+import { resultForSymbol, determineGameState } from '../logic/logic';
+import { getGamesWonForPlayer } from '../api/index';
 import * as _ from 'lodash';
 
 export const initialState = {
@@ -11,6 +11,7 @@ export const initialState = {
   },
   won: undefined,
   wonLine: undefined,
+  winner: undefined,
   draw: false,
   turn: O,
   players: {
@@ -46,33 +47,17 @@ export const gameReducer = (state = initialState, action) => {
         }
       }
     case 'ADD_SYMBOL':
-      const {symbol, row, position} = action;
+      const {symbol, row, position, updateLeaderboard} = action;
       const newState = _.cloneDeep(state);
       newState.board[row][position] = symbol;
 
       const xResult = resultForSymbol(X, newState.board);
       const oResult = resultForSymbol(O, newState.board);
-      let winner; 
 
-      if (xResult.won) {
-        newState.won = X;
-        newState.wonLine = xResult.line;
-        winner = state.players.X.name;
-      }
-
-      if (oResult.won) {
-        newState.won = O;
-        newState.wonLine = oResult.line;
-        winner = state.players.O.name;
-      }
-
-      if (!newState.won) {
+      const gameState = determineGameState(xResult, oResult, newState.players, updateLeaderboard);
+      
+      if (!gameState.won) {
         newState.turn = newState.turn === O ? X : O;
-      } else {
-        postLeaderboard(state.players.X.name, state.players.O.name, winner); 
-
-        const newScore = getGamesWonForPlayer(winner);
-        newState.players[newState.won.toUpperCase()].gamesWon = newScore;
       }
 
       const boardIsFull = [
@@ -87,7 +72,7 @@ export const gameReducer = (state = initialState, action) => {
         newState.draw = true;
       }
 
-      return newState;
+      return {...newState, ...gameState };
     case 'START_AGAIN':
       return { ...initialState, players: state.players };
     default:

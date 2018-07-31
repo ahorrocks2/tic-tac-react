@@ -35,7 +35,7 @@ export const getGamesWonForPlayer = async (name) => {
   }
 };
 
-export const postLeaderboard = async (playerNameX, playerNameO, winner) => {
+export const postLeaderboard = () => async (playerNameX, playerNameO, winner) => {
   try {
     const requestBody = {
       'player_x_name': playerNameX.toUpperCase(),
