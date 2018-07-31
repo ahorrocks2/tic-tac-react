@@ -28,16 +28,37 @@ export const determineGameState = (xResult, oResult, players, updateLeaderboard)
   return game;
 }
 
-export const countWins = leaderboards => {
-  const winnerNames = [...new Set(leaderboards.map(lb => lb.winner))];
+export const calculatePlayerStats = leaderboards => {
+  const playerNames = getUniquePlayerNames(leaderboards);
 
-  return winnerNames.map(name => {
+  return playerNames.map(name => {
+    const games = leaderboards.filter(lb => lb.player_o_name === name || lb.player_x_name === name);
+    const gameCounts = countPlayerLossesAndDraws(games, name);
+    const { wins, losses, draws } = gameCounts;
+  
     return {
       name,
-      wins: leaderboards.filter(lb => lb.winner === name).length
+      wins,
+      losses,
+      draws
     }
   });
 };
+
+export const getUniquePlayerNames = leaderboards => {
+  const playerXNames = [...new Set(leaderboards.map(lb => lb.player_x_name))];
+  const playerONames = [...new Set(leaderboards.map(lb => lb.player_o_name))];
+
+  return [...new Set([...playerXNames, ...playerONames])];
+}
+
+const countPlayerLossesAndDraws = (games, name) => {
+  const wins = games.filter(g => g.winner === name).length;
+  const draws = games.filter(g => g.winner === 'DRAW').length;
+  const losses = games.filter(g => g.winner !== name && g.winner !== 'DRAW').length;
+
+  return { wins, losses, draws }
+}
 
 export const validatePlayerNames = (playerNameX, playerNameO) => {
   let errors = [];

@@ -1,4 +1,4 @@
-import { resultForSymbol, validatePlayerNames, countWins, determineResultOfMove, determineGameState } from './logic';
+import { resultForSymbol, validatePlayerNames, calculatePlayerStats, determineResultOfMove, determineGameState, getUniquePlayerNames } from './logic';
 import { X, O } from '../symbols/symbols';
 import { players } from '../components/App.test';
 
@@ -22,15 +22,58 @@ it('Should determine the new state of the game after a move that does ends the g
 
 it('Should count the number of wins for unique leaderboard names', () => {
   const leaderboards = [
-    {  'winner': 'JANE' },
-    {  'winner': 'JOHN' },
-    {  'winner': 'JOHN' },
-    {  'winner': 'JOHN' }
+    { 
+      "player_x_name": "JANE", 
+      "player_o_name": "PETER", 
+      "winner": "PETER",
+    }, 
+    { 
+      "player_x_name": "JANE", 
+      "player_o_name": "JIM", 
+      "winner": "DRAW"
+    }, 
+    { 
+      "player_x_name": "JANE", 
+      "player_o_name": "PETER", 
+      "winner": "JANE"
+    }, 
+    { 
+      "player_x_name": "JANE", 
+      "player_o_name": "PETER", 
+      "winner": "PETER"
+    }
   ];
 
-  const scores = countWins(leaderboards);
-  expect(scores.find(s => s.name === 'JANE').wins).toEqual(1);
-  expect(scores.find(s => s.name === 'JOHN').wins).toEqual(3);
+  const scores = calculatePlayerStats(leaderboards);
+  const janeScores = scores.find(s => s.name === 'JANE')
+  expect(janeScores.wins).toBe(1);
+  expect(janeScores.draws).toBe(1);
+  expect(janeScores.losses).toBe(2);
+  expect(scores.length).toBe(3)
+});
+
+it('Should return a list of unique player names', () => {
+  const leaderboards = [
+    {
+      "player_x_name": "JANE",
+      "player_o_name": "PETER",
+    },
+    {
+      "player_x_name": "JANE",
+      "player_o_name": "JIM",
+      "winner": "DRAW"
+    },
+    {
+      "player_x_name": "JANE",
+      "player_o_name": "PETER",
+    },
+    {
+      "player_x_name": "JANE",
+      "player_o_name": "PETER",
+    }
+  ];
+
+  expect(getUniquePlayerNames(leaderboards)).toEqual(['JANE', 'PETER', 'JIM']);
 });
 
 const nameValidationCases = [

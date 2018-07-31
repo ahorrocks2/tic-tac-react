@@ -1,5 +1,5 @@
 import { getLeaderboards } from '../api/index';
-import { countWins } from '../logic/logic';
+import { calculatePlayerStats } from '../logic/logic';
 
 export const addSymbol = (row, position, symbol, updateLeaderboard) => ({
   type: 'ADD_SYMBOL',
@@ -28,7 +28,7 @@ export const getScoresForLeaderboard = () => {
   return dispatch => {
     return getLeaderboards()
       .then(leaderboards => {
-        const scores = countWins(leaderboards);
+        const scores = calculatePlayerStats(leaderboards);
         dispatch(getScores(scores));
       });
   }
