@@ -48,31 +48,33 @@ export const gameReducer = (state = initialState, action) => {
       }
     case 'ADD_SYMBOL':
       const {symbol, row, position, updateLeaderboard} = action;
-      const newState = _.cloneDeep(state);
-      newState.board[row][position] = symbol;
+      const newBoard = _.cloneDeep(state);
+      const players = newBoard.players;
+      newBoard.board[row][position] = symbol;
 
-      const xResult = resultForSymbol(X, newState.board);
-      const oResult = resultForSymbol(O, newState.board);
+      const xResult = resultForSymbol(X, newBoard.board);
+      const oResult = resultForSymbol(O, newBoard.board);
 
-      const gameState = determineGameState(xResult, oResult, newState.players, updateLeaderboard);
+      const gameState = determineGameState(xResult, oResult, players, updateLeaderboard);
       
       if (!gameState.won) {
-        newState.turn = newState.turn === O ? X : O;
+        gameState['turn'] = newBoard.turn === O ? X : O;
       }
 
       const boardIsFull = [
-        ...newState.board[0],
-        ...newState.board[1],
-        ...newState.board[2]
+        ...newBoard.board[0],
+        ...newBoard.board[1],
+        ...newBoard.board[2]
       ]
         .filter(symbol => symbol !== '')
         .length === 9;
 
-      if (boardIsFull && !newState.won) {
-        newState.draw = true;
+      if (boardIsFull && !gameState.won) {
+        gameState['draw'] = true;
+        updateLeaderboard()(players.X.name, players.O.name, 'DRAW');
       }
 
-      return {...newState, ...gameState };
+      return {...newBoard, ...gameState };
     case 'START_AGAIN':
       return { ...initialState, players: state.players };
     default:
