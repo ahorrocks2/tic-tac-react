@@ -15,35 +15,21 @@ export const initialState = {
   draw: false,
   turn: O,
   players: {
-    X: {
-      name: '',
-      gamesWon: 0
-    },
-    O: {
-      name: '',
-      gamesWon: 0
-    }
+    X: '',
+    O: ''
   }
 };
 
 export const gameReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'ADD_PLAYERS':
-      const { playerNameX, playerNameO } = action;
-      const gamesWonX = getGamesWonForPlayer(playerNameX);
-      const gamesWonO = getGamesWonForPlayer(playerNameO);
+      const { playerX, playerO } = action;
 
       return {
         ...state,
         players: {
-          X: {
-            name: playerNameX,
-            gamesWon: gamesWonX
-          },
-          O: {
-            name: playerNameO,
-            gamesWon: gamesWonO
-          }
+          X: playerX,
+          O: playerO
         }
       }
     case 'ADD_SYMBOL':
@@ -71,7 +57,7 @@ export const gameReducer = (state = initialState, action) => {
 
       if (boardIsFull && !gameState.won) {
         gameState['draw'] = true;
-        updateLeaderboard()(players.X.name, players.O.name, 'DRAW');
+        updateLeaderboard()(players.X, players.O, 'DRAW');
       }
 
       return {...newBoard, ...gameState };

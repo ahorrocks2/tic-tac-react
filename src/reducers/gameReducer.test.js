@@ -86,8 +86,8 @@ it('Should reset the state to initial', () => {
 });
 
 it('Should add player names to the state', () => {
-  const nextState = gameReducer(initialState, { type: 'ADD_PLAYERS', playerNameX: players.X.name, playerNameO: players.O.name });
+  const nextState = gameReducer(initialState, { type: 'ADD_PLAYERS', playerX: players.X, playerO: players.O });
   
-  expect(nextState.players.X.name).toEqual('Jane');
-  expect(nextState.players.O.name).toEqual('John');  
+  expect(nextState.players.X).toEqual('Jane');
+  expect(nextState.players.O).toEqual('John');  
 });

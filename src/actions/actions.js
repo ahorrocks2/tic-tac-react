@@ -9,10 +9,10 @@ export const addSymbol = (row, position, symbol, updateLeaderboard) => ({
   updateLeaderboard
 });
 
-export const addPlayers = (playerNameX, playerNameO) => ({
+export const addPlayers = (playerX, playerO) => ({
   type: 'ADD_PLAYERS',
-  playerNameX,
-  playerNameO
+  playerX,
+  playerO
 });
 
 export const startAgain = () => ({

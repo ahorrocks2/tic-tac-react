@@ -12,17 +12,17 @@ export const determineGameState = (xResult, oResult, players, updateLeaderboard)
   if (xResult.won) {
     game.won = X;
     game.wonLine = xResult.line;
-    game.winner = players.X.name;
+    game.winner = players.X;
   }
 
   if (oResult.won) {
     game.won = O;
     game.wonLine = oResult.line;
-    game.winner = players.O.name;
+    game.winner = players.O;
   }
   
   if (game.won) {
-    updateLeaderboard()(players.X.name, players.O.name, game.winner);
+    updateLeaderboard()(players.X, players.O, game.winner);
   }
 
   return game;
@@ -60,14 +60,14 @@ const countPlayerLossesAndDraws = (games, name) => {
   return { wins, losses, draws }
 }
 
-export const validatePlayerNames = (playerNameX, playerNameO) => {
+export const validatePlayerNames = (playerX, playerO) => {
   let errors = [];
 
-  if (playerNameX === "") {
+  if (playerX === "") {
     errors.push("Player X must have a name.");
   }
 
-  if (playerNameO === "") {
+  if (playerO === "") {
     errors.push("Player O must have a name.");
   }
 

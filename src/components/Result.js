@@ -8,16 +8,16 @@ class Result extends Component {
     let result = ''; 
     let { X, O } = this.props.players;
 
-    if(validatePlayerNames(X.name, O.name).length > 0) {
+    if(validatePlayerNames(X, O).length > 0) {
       result = `Please enter player names to begin the game.`
     } else {
       if (this.props.turn) {
         const turn = this.props.turn.toUpperCase();
-        result = `It's ${this.props.players[turn].name}'s turn.`;
+        result = `It's ${this.props.players[turn]}'s turn.`;
       }
       if (this.props.won) {
         const won = this.props.won.toUpperCase();
-        result = `Yay! ${this.props.players[won].name} won!`
+        result = `Yay! ${this.props.players[won]} won!`
       } else if (this.props.draw) {
         result = 'We have a draw!';
       }

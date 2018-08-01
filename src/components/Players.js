@@ -6,8 +6,8 @@ import { validatePlayerNames } from "../logic/logic";
 
 class Players extends Component {
   state = {
-    X: this.props.players.X.name,
-    O: this.props.players.O.name,
+    X: this.props.players.X,
+    O: this.props.players.O,
     errors: [],
     formVisible: true
   };
@@ -78,8 +78,8 @@ export default connect(
   },
   dispatch => {
     return {
-      addPlayers(playerNameX, playerNameO) {
-        dispatch(addPlayers(playerNameX, playerNameO));
+      addPlayers(playerX, playerO) {
+        dispatch(addPlayers(playerX, playerO));
       }
     };
   }

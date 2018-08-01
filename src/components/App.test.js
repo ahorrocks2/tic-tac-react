@@ -5,14 +5,8 @@ import Result from './Result';
 import Board from './Board';
 
 export const players = {
-  X: {
-    name: 'Jane',
-    gamesWon: 0
-  },
-  O: {
-    name: 'John',
-    gamesWon: 0
-  }
+  X: 'Jane',
+  O: 'John'
 }
 
 it('Should render an App component with Result and Board components', () => {

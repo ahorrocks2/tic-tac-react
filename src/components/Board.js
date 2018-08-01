@@ -28,7 +28,7 @@ class Board extends Component {
     const wonClass   = this.props.won ? ` won-${this.props.wonLine}` : '';
     const drawClass  = this.props.draw ? ' draw' : '';
     const boardClass = 'board' + wonClass + drawClass;
-    const hasPlayerNames = validatePlayerNames(this.props.players.X.name, this.props.players.O.name).length > 0 ? false : true;
+    const hasPlayerNames = validatePlayerNames(this.props.players.X, this.props.players.O).length > 0 ? false : true;
 
     return (
       <div>
