@@ -51,3 +51,16 @@ export const postLeaderboard = () => async (playerNameX, playerNameO, winner) =>
   }
 };
 
+export const deleteLeaderboards = async () => {
+  try {
+    const leaderboards = await getLeaderboards();
+
+    Promise.all([leaderboards.map(lb => makeApiRequest(`${leaderboardUrl}/${lb.id}`, 'DELETE'))])
+      .then(done => {
+        return '';
+      });   
+  } catch(e) {
+    throw new Error('Something went wrong deleting leaderboards!', e);
+  }
+};
+

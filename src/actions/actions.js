@@ -1,4 +1,4 @@
-import { getLeaderboards } from '../api/index';
+import { getLeaderboards, deleteLeaderboards } from '../api/index';
 import { calculatePlayerStats } from '../logic/logic';
 
 export const addSymbol = (row, position, symbol, updateLeaderboard) => ({
@@ -24,6 +24,10 @@ export const getScores = (scores) => ({
   scores
 })
 
+export const deleteScores = () => ({
+  type: 'DELETE_SCORES'
+})
+
 export const getScoresForLeaderboard = () => {
   return dispatch => {
     return getLeaderboards()
@@ -31,5 +35,12 @@ export const getScoresForLeaderboard = () => {
         const scores = calculatePlayerStats(leaderboards);
         dispatch(getScores(scores));
       });
+  }
+};
+
+export const clearLeaderboards = () => {
+  return dispatch => {
+    dispatch(deleteScores());
+    deleteLeaderboards();
   }
 };

@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getScoresForLeaderboard } from "../actions/actions";
+import { getScoresForLeaderboard, clearLeaderboards } from "../actions/actions";
 
 class Leaderboard extends Component {
   state = {
     leaderBoardPuller: null
   }
   
-  componentDidMount = () => {
+  componentDidMount() {
     const puller = setInterval(() => this.props.getScores(), 10000);
     this.setState({ leaderBoardPuller: puller });
   }
@@ -26,6 +26,7 @@ class Leaderboard extends Component {
             this.props.scores.map(x => <div key={x.name}>{x.name !== 'DRAW' && `${x.name} - Wins: ${x.wins}, Losses: ${x.losses}, Draws: ${x.draws}`}</div>)
           }
         </div>
+        <button onClick={() => this.props.clearLeaderboards()}>Clear Leaderboard</button>
       </div>
     );
   }
@@ -44,6 +45,9 @@ export default connect(
     return {
       getScores() {
         dispatch(getScoresForLeaderboard());
+      },
+      clearLeaderboards() {
+        dispatch(clearLeaderboards());
       }
     };
   }

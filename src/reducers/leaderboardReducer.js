@@ -9,6 +9,8 @@ export const leaderboardReducer = (state = initialState, action) => {
     case 'GET_SCORES':
       const { scores } = action;
       return { scores };
+    case 'DELETE_LEADERBOARD': 
+      return initialState;
     default:
       return state;
   }
