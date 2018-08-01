@@ -18,12 +18,14 @@ class Leaderboard extends Component {
   }
 
   render() {
+    const scores = this.props.scores.sort((a, b) => b.wins - a.wins);
+
     return (
       <div>
         <h3>LEADERBOARD</h3>
         <div>
           {
-            this.props.scores.map(x => <div key={x.name}>{x.name !== 'DRAW' && `${x.name} - Wins: ${x.wins}, Losses: ${x.losses}, Draws: ${x.draws}`}</div>)
+            scores.map(x => <div key={x.name}>{x.name !== 'DRAW' && `${x.name} - Wins: ${x.wins}, Losses: ${x.losses}, Draws: ${x.draws}`}</div>)
           }
         </div>
         <button onClick={() => this.props.clearLeaderboards()}>Clear Leaderboard</button>
