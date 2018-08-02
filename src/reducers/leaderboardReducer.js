@@ -1,5 +1,3 @@
-import {  } from '../api/index';
-
 export const initialState = {
   scores: []
 };
@@ -10,7 +8,7 @@ export const leaderboardReducer = (state = initialState, action) => {
       const { scores } = action;
       return { scores };
     case 'DELETE_LEADERBOARD': 
-      return initialState;
+      return { ...initialState };
     default:
       return state;
   }
