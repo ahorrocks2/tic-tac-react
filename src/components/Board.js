@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Players from './Players';
 import BlankSymbol from './BlankSymbol';
 import XSymbol from './XSymbol';
 import OSymbol from './OSymbol';
@@ -57,6 +58,7 @@ class Board extends Component {
             }
           </div>
         }
+        <Players />
       </div>
     );
   }

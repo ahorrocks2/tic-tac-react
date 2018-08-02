@@ -56,9 +56,7 @@ class Players extends Component {
             <button type='submit'>Start Game</button>
           </form>
         }
-        <div>
-          {errors.map(e => ( <p key={errors.indexOf(e)} className='errorMessage'>{e}</p> ))}
-        </div>
+        {errors.map(e => ( <p key={errors.indexOf(e)} className='errorMessage'>{e}</p> ))}
       </div>
     );
   }
