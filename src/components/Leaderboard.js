@@ -32,7 +32,11 @@ class Leaderboard extends Component {
                       <p>{x.name}</p>
                     </div>
                     <div className='playerScores'>
-                      <p>Wins {x.wins}, Losses: {x.losses}, Draws: {x.draws}</p>
+                      <p>
+                        Wins: <span className='wins'>{x.wins} </span> 
+                        - Losses: <span className='losses'>{x.losses} </span> 
+                        - Draws: <span className='draws'>{x.draws}</span>
+                      </p>
                     </div>
                   </div>
                 }

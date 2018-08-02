@@ -17,8 +17,22 @@
 
 .playerName {
   align-self: flex-start;
+  font-weight: bold;
 }
 
 .playerScores {
   align-self: flex-end;
 }
+
+.wins {
+  color: green;
+}
+
+.losses {
+  color: red;
+}
+
+.draws {
+  color: gold;
+}
+
