@@ -1,0 +1,11 @@
+.playersForm {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: auto;
+}
+
+.playersForm label, input {
+  margin: 5px; 
+}
+

@@ -8,6 +8,7 @@ import { addSymbol, startAgain } from '../actions/actions';
 import { validatePlayerNames } from '../logic/logic';
 import { postLeaderboard as updateResults } from '../api/index';
 import { connect } from 'react-redux';
+import './Board.css';
 
 class Board extends Component {
   addSymbol (updateFn, rowIndex, position, symbol) {
@@ -31,7 +32,7 @@ class Board extends Component {
     const hasPlayerNames = validatePlayerNames(this.props.players.X, this.props.players.O).length > 0 ? false : true;
 
     return (
-      <div>
+      <div className="boardContainer">
         { hasPlayerNames &&
           <div className={boardClass}>
             {

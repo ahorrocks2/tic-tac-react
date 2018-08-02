@@ -1,21 +1,21 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { getScoresForLeaderboard, clearLeaderboards } from "../actions/actions";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getScoresForLeaderboard, clearLeaderboards } from '../actions/actions';
 import './Leaderboard.css';
 
 class Leaderboard extends Component {
   state = {
-    leaderBoardPuller: null
+    scores: null
   }
   
   componentDidMount() {
-    const puller = setInterval(() => this.props.getScores(), 10000);
-    this.setState({ leaderBoardPuller: puller });
+    const pollScores = setInterval(() => this.props.getScores(), 5000);
+    this.setState({ scores: pollScores });
   }
 
   componentWillUnmount() {
-    clearInterval(this.state.leaderBoardPuller);
+    clearInterval(this.state.scores);
   }
 
   render() {
@@ -23,14 +23,17 @@ class Leaderboard extends Component {
 
     return (
       <div>
-        <h3>LEADERBOARD</h3>
-          {
-            scores.map(x => 
+        <h2>LEADERBOARD</h2>
+          { scores.map(x => 
               (<div key={x.name}>
                 {x.name !== 'DRAW' && 
-                  <div className="player">
-                    <p className="playerName">{x.name}</p>
-                    <p className="playerWins">Wins {x.wins}, Losses: {x.losses}, Draws: {x.draws}</p>
+                  <div className='playerData'>
+                    <div className='playerName'>
+                      <p>{x.name}</p>
+                    </div>
+                    <div className='playerScores'>
+                      <p>Wins {x.wins}, Losses: {x.losses}, Draws: {x.draws}</p>
+                    </div>
                   </div>
                 }
               </div>)

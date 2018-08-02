@@ -9,7 +9,7 @@ class Result extends Component {
     let { X, O } = this.props.players;
 
     if(validatePlayerNames(X, O).length > 0) {
-      result = `Please enter player names to begin the game.`
+      result = `Please enter player names to begin.`
     } else {
       if (this.props.turn) {
         const turn = this.props.turn.toUpperCase();
@@ -24,7 +24,7 @@ class Result extends Component {
     }
     
     return (
-      <div>
+      <div className="resultContainer">
         <p>
           {result}
         </p>

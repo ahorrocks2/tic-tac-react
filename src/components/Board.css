@@ -1,0 +1,9 @@
+.game button {
+  background: black;
+  color: white;
+}
+
+.game button:hover {
+  background: white;
+  color: black;
+}

@@ -1,13 +1,24 @@
-.player {
+.leaderboard button {
+  background: white;
+  color: black;
+}
+
+.leaderboard button:hover {
+  background: black;
+  color: white;
+}
+
+.playerData {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .playerName {
-
+  align-self: flex-start;
 }
 
-.playerWins {
-
+.playerScores {
+  align-self: flex-end;
 }
