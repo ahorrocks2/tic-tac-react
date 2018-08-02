@@ -1,6 +1,5 @@
 import { X, O } from '../symbols/symbols';
 import { resultForSymbol, determineGameState } from '../logic/logic';
-import { getGamesWonForPlayer } from '../api/index';
 import * as _ from 'lodash';
 
 export const initialState = {

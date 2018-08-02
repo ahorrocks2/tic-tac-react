@@ -1,6 +1,4 @@
 import { X, O } from '../symbols/symbols';
-import { getGamesWonForPlayer } from '../api/index';
-
 
 export const determineGameState = (xResult, oResult, players, updateLeaderboard) => {
   let game = {

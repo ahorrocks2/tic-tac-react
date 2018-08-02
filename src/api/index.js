@@ -23,18 +23,6 @@ export const getLeaderboards = async () => {
   }
 };
 
-export const getGamesWonForPlayer = async (name) => {
-  try {
-    const filter = JSON.stringify({'winner': name.toUpperCase()});
-    const encodedUri = `${leaderboardUrl}/count?where=${encodeURIComponent(filter)}`;
-    const response = await makeApiRequest(encodedUri, 'GET');
-
-    return response.count;
-  } catch(e) {
-    throw new Error('Something went wrong counting games won!', e);
-  }
-};
-
 export const postLeaderboard = () => async (playerNameX, playerNameO, winner) => {
   try {
     const requestBody = {
