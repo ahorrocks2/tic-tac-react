@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getScoresForLeaderboard, clearLeaderboards } from '../actions/actions';
+import ScoreDetails from './ScoreDetails';
 import '../css/Leaderboard.css';
 
 class Leaderboard extends Component {
@@ -27,24 +28,8 @@ class Leaderboard extends Component {
         <div>
           { scores.length < 1 ? <h3>LOADING SCORES...</h3> : null}
         </div>
-          { scores.map(x => 
-              (<div key={x.name}>
-                {x.name !== 'DRAW' && 
-                  <div className='playerData'>
-                    <div className='playerName'>
-                      <p>{x.name}</p>
-                    </div>
-                    <div className='playerScores'>
-                      <p>
-                        Wins: <span className='wins'>{x.wins} </span> 
-                        - Losses: <span className='losses'>{x.losses} </span> 
-                        - Draws: <span className='draws'>{x.draws}</span>
-                      </p>
-                    </div>
-                  </div>
-                }
-              </div>)
-            )
+          { 
+            scores.map(score => score.name !== 'DRAW' && <ScoreDetails key={score.name} score={score} />)
           }
         <button onClick={() => this.props.clearLeaderboards()}>Clear Leaderboard</button>
       </div>

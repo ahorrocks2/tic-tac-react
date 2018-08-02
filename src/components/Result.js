@@ -7,7 +7,7 @@ class Result extends Component {
     let result = ''; 
     let { X, O } = this.props.players;
 
-    if(!this.props.players.X && !this.props.players.O) {
+    if(!X && !O) {
       result = `Please enter player names to begin.`
     } else {
       if (this.props.turn) {

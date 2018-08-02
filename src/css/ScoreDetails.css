@@ -1,0 +1,27 @@
+.playerData {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.playerName {
+  align-self: flex-start;
+  font-weight: bold;
+}
+
+.playerScores {
+  align-self: flex-end;
+}
+
+.wins {
+  color: green;
+}
+
+.losses {
+  color: red;
+}
+
+.draws {
+  color: gold;
+}

@@ -29,10 +29,11 @@ class Board extends Component {
     const wonClass   = this.props.won ? ` won-${this.props.wonLine}` : '';
     const drawClass  = this.props.draw ? ' draw' : '';
     const boardClass = 'board' + wonClass + drawClass;
-
+    const { X, O } = this.props.players;
+    
     return (
       <div className="boardContainer">
-        { this.props.players.X && this.props.players.O &&
+        { X && O &&
           <div className={boardClass}>
             {
               Object.keys(this.props.board)
