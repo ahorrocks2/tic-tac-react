@@ -35,3 +35,24 @@ svg {
   animation-name: symbol-appear;
   animation-duration: .15s;
 }
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 800px;
+}
+
+.game {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+}
+
+.leaderboard {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  text-align: center;
+}

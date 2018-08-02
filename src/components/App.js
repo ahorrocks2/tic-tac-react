@@ -8,11 +8,15 @@ import './App.css';
 
 const App = ({className}) => {
   return (
-    <div className={className}>
-      <Result />
-      <Board />
-      <Players />
-      <Leaderboard />
+    <div className={className + ' container'}>
+      <div className="game">
+        <Result />
+        <Board />
+        <Players />
+      </div>
+      <div className="leaderboard">
+        <Leaderboard />
+      </div>
     </div>
   );
 }
