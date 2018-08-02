@@ -35,32 +35,23 @@ export const gameReducer = (state = initialState, action) => {
       const {symbol, row, position, updateLeaderboard} = action;
       const newBoard = _.cloneDeep(state);
       const players = newBoard.players;
+      
       newBoard.board[row][position] = symbol;
 
       const xResult = resultForSymbol(X, newBoard.board);
       const oResult = resultForSymbol(O, newBoard.board);
+      const gameResult = determineGameResult(newBoard, xResult, oResult, players, updateLeaderboard);
+     
+      if (gameResult.draw) {   
+        updateLeaderboard()(players.X, players.O, 'DRAW');
+      }
 
-      const gameResult = determineGameResult(xResult, oResult, players, updateLeaderboard);
-      
       if (gameResult.won) {
         updateLeaderboard()(players.X, players.O, gameResult.winner);
       }
 
       if (!gameResult.won) {
         newBoard.turn = newBoard.turn === O ? X : O;
-      }
-
-      const boardIsFull = [
-        ...newBoard.board[0],
-        ...newBoard.board[1],
-        ...newBoard.board[2]
-      ]
-        .filter(symbol => symbol !== '')
-        .length === 9;
-
-      if (boardIsFull && !gameResult.won) {
-        gameResult['draw'] = true;
-        updateLeaderboard()(players.X, players.O, 'DRAW');
       }
 
       return {...newBoard, ...gameResult };

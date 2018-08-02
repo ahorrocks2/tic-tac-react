@@ -1,23 +1,53 @@
-import { resultForSymbol, validatePlayerNames, calculatePlayerStats, determineResultOfMove, determineGameState, getUniquePlayerNames } from './logic';
+import { resultForSymbol, validatePlayerNames, calculatePlayerStats, determineResultOfMove, determineGameResult, gameResultsInADraw, getUniquePlayerNames } from './logic';
 import { X, O } from '../symbols/symbols';
 import { players } from '../components/App.test';
 
+it('Should determine if a game results in a draw', () => {
+  const newBoard = {
+    board: {
+      0: [X, O, X],
+      1: [O, X, X],
+      2: [O, X, O]
+    }
+  };
+
+  const gameResult = { won: undefined, winner: undefined, wonLine: undefined, draw: undefined };
+  const endsInADraw = gameResultsInADraw(newBoard, gameResult);
+  expect(endsInADraw).toBe(true);
+});
+
+
 it('Should determine the new state of the game after a move that does not end the game', () => {
+  const newBoard = {
+    board: {
+      0: [X, O, ''],
+      1: [O, X, ''],
+      2: [O, X, O]
+    }
+  };
   const xResult = { won: false };
   const oResult = { won: false };
-  const nobodyWins = determineGameState(xResult, oResult, players, null);
+  const nobodyWins = determineGameResult(newBoard, xResult, oResult, players);
   
   expect(nobodyWins.won).toBe(undefined);
+  expect(nobodyWins.draw).toBe(undefined);
 });
 
 it('Should determine the new state of the game after a move that does ends the game', () => {
+  const newBoard = {
+    board: {
+      0: [X, O, X],
+      1: [O, O, O],
+      2: [O, X, X]
+    }
+  };
   const xResult = { won: false };
   const oResult = { won: true, wonLine: 'row2', winner: 'o' };
-  const updateFn = () => jest.fn();
 
-  const somebodyWins = determineGameState(xResult, oResult, players, updateFn);
+  const somebodyWins = determineGameResult(newBoard, xResult, oResult, players);
   
   expect(somebodyWins.winner).toBe('John');
+  expect(somebodyWins.draw).toBe(undefined);
 });
 
 it('Should count the number of wins for unique leaderboard names', () => {

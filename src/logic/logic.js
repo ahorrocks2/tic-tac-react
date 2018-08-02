@@ -1,10 +1,23 @@
 import { X, O } from '../symbols/symbols';
 
-export const determineGameResult = (xResult, oResult, players, updateLeaderboard) => {
+export const gameResultsInADraw = (newBoard, gameResult) => {
+  const boardIsFull = [
+    ...newBoard.board[0],
+    ...newBoard.board[1],
+    ...newBoard.board[2]
+  ]
+    .filter(symbol => symbol !== '')
+    .length === 9;
+
+  return boardIsFull && !gameResult.won
+}
+
+export const determineGameResult = (newBoard, xResult, oResult, players) => {
   let game = {
     won: undefined,
     wonLine: undefined,
-    winner: undefined
+    winner: undefined,
+    draw: undefined
   };
 
   if (xResult.won) {
@@ -17,6 +30,10 @@ export const determineGameResult = (xResult, oResult, players, updateLeaderboard
     game.won = O;
     game.wonLine = oResult.line;
     game.winner = players.O;
+  }
+
+  if (gameResultsInADraw(newBoard, game)) {
+    game.draw = true;
   }
 
   return game;
