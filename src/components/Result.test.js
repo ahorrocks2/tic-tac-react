@@ -24,5 +24,5 @@ it('Should render the Result component with message about needing player names t
     O: ''
   }
   const wrapper = shallow(<Result draw={true} turn={'x'} players={noPlayerNames} />);
-  expect(wrapper.find('p').node.props.children).toEqual(`Please enter player names to begin the game.`);
+  expect(wrapper.find('p').node.props.children).toEqual(`Please enter player names to begin.`);
 });
