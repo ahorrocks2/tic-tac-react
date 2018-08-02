@@ -1,8 +1,6 @@
-# Tic-tac-react
+# Tic-tac-react+
 
-[![Build Status](https://travis-ci.org/belfz/tic-tac-react.svg?branch=master)](https://travis-ci.org/belfz/tic-tac-react)
+This repo extends leaderboard functionality from an existing tic-tac-toe game. For setup run `npm i` followed by `npm run start`. Enjoy!
 
-A tic-tac-toe game (for two players) implemented with react and redux.
-[Click here to play!](https://belfz.github.io/tic-tac-react/)
+Credit to belfz for the [the gameboard functionality](https://belfz.github.io/tic-tac-react/)
 
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
