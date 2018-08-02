@@ -8,7 +8,7 @@ import { addSymbol, startAgain } from '../actions/actions';
 import { validatePlayerNames } from '../logic/logic';
 import { postLeaderboard as updateResults } from '../api/index';
 import { connect } from 'react-redux';
-import './Board.css';
+import '../css/Board.css';
 
 class Board extends Component {
   addSymbol (updateFn, rowIndex, position, symbol) {

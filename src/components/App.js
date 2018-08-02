@@ -4,7 +4,7 @@ import Result from './Result';
 import Players from './Players';
 import Leaderboard from './Leaderboard';
 import styled from 'styled-components';
-import './App.css';
+import '../css/App.css';
 
 const App = ({className}) => {
   return (

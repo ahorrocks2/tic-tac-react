@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { addPlayers } from "../actions/actions";
 import { validatePlayerNames } from "../logic/logic";
-import './Players.css';
+import '../css/Players.css';
 
 class Players extends Component {
   state = {
