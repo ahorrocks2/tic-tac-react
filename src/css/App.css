@@ -36,14 +36,6 @@ svg {
   animation-duration: .15s;
 }
 
-html {
-  min-height: 100%;
-}
-
-body {
-  min-height: 100vh;
-}
-
 #root {
   margin: auto;
   max-width: 1000px;
