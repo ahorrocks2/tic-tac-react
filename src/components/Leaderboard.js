@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getScoresForLeaderboard, clearLeaderboards } from "../actions/actions";
+import './Leaderboard.css';
 
 class Leaderboard extends Component {
   state = {
@@ -23,11 +24,18 @@ class Leaderboard extends Component {
     return (
       <div>
         <h3>LEADERBOARD</h3>
-        <div>
           {
-            scores.map(x => <div key={x.name}>{x.name !== 'DRAW' && `${x.name} - Wins: ${x.wins}, Losses: ${x.losses}, Draws: ${x.draws}`}</div>)
+            scores.map(x => 
+              (<div key={x.name}>
+                {x.name !== 'DRAW' && 
+                  <div className="player">
+                    <p className="playerName">{x.name}</p>
+                    <p className="playerWins">Wins {x.wins}, Losses: {x.losses}, Draws: {x.draws}</p>
+                  </div>
+                }
+              </div>)
+            )
           }
-        </div>
         <button onClick={() => this.props.clearLeaderboards()}>Clear Leaderboard</button>
       </div>
     );
