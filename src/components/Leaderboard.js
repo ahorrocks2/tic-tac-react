@@ -10,7 +10,7 @@ class Leaderboard extends Component {
   }
   
   componentDidMount() {
-    const pollScores = setInterval(() => this.props.getScores(), 5000);
+    const pollScores = setInterval(() => this.props.getScores(), 2500);
     this.setState({ scores: pollScores });
   }
 
@@ -24,6 +24,9 @@ class Leaderboard extends Component {
     return (
       <div>
         <h2>LEADERBOARD</h2>
+        <div>
+          { scores.length < 1 ? <h3>LOADING SCORES...</h3> : null}
+        </div>
           { scores.map(x => 
               (<div key={x.name}>
                 {x.name !== 'DRAW' && 
