@@ -1,5 +1,5 @@
 import { X, O } from '../symbols/symbols';
-import { resultForSymbol, determineGameState } from '../logic/logic';
+import { resultForSymbol, determineGameResult } from '../logic/logic';
 import * as _ from 'lodash';
 
 export const initialState = {
@@ -40,10 +40,14 @@ export const gameReducer = (state = initialState, action) => {
       const xResult = resultForSymbol(X, newBoard.board);
       const oResult = resultForSymbol(O, newBoard.board);
 
-      const gameState = determineGameState(xResult, oResult, players, updateLeaderboard);
+      const gameResult = determineGameResult(xResult, oResult, players, updateLeaderboard);
       
-      if (!gameState.won) {
-        gameState['turn'] = newBoard.turn === O ? X : O;
+      if (gameResult.won) {
+        updateLeaderboard()(players.X, players.O, gameResult.winner);
+      }
+
+      if (!gameResult.won) {
+        newBoard.turn = newBoard.turn === O ? X : O;
       }
 
       const boardIsFull = [
@@ -54,12 +58,12 @@ export const gameReducer = (state = initialState, action) => {
         .filter(symbol => symbol !== '')
         .length === 9;
 
-      if (boardIsFull && !gameState.won) {
-        gameState['draw'] = true;
+      if (boardIsFull && !gameResult.won) {
+        gameResult['draw'] = true;
         updateLeaderboard()(players.X, players.O, 'DRAW');
       }
 
-      return {...newBoard, ...gameState };
+      return {...newBoard, ...gameResult };
     case 'START_AGAIN':
       return { ...initialState, players: state.players };
     default:

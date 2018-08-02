@@ -1,6 +1,6 @@
 import { X, O } from '../symbols/symbols';
 
-export const determineGameState = (xResult, oResult, players, updateLeaderboard) => {
+export const determineGameResult = (xResult, oResult, players, updateLeaderboard) => {
   let game = {
     won: undefined,
     wonLine: undefined,
@@ -17,10 +17,6 @@ export const determineGameState = (xResult, oResult, players, updateLeaderboard)
     game.won = O;
     game.wonLine = oResult.line;
     game.winner = players.O;
-  }
-  
-  if (game.won) {
-    updateLeaderboard()(players.X, players.O, game.winner);
   }
 
   return game;

@@ -12,12 +12,10 @@ class Result extends Component {
       result = `Please enter player names to begin.`
     } else {
       if (turn) {
-        const turn = turn.toUpperCase();
-        result = `It's ${players[turn]}'s turn.`;
+        result = `It's ${players[turn.toUpperCase()]}'s turn.`;
       }
       if (won) {
-        const won = won.toUpperCase();
-        result = `Yay! ${players[won]} won!`
+        result = `Yay! ${players[won.toUpperCase()]} won!`
       } else if (draw) {
         result = 'We have a draw!';
       }
