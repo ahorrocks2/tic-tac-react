@@ -6,7 +6,6 @@ import XSymbol from './XSymbol';
 import OSymbol from './OSymbol';
 import { X, O } from '../symbols/symbols';
 import { addSymbol, startAgain } from '../actions/actions';
-import { validatePlayerNames } from '../logic/logic';
 import { postLeaderboard as updateResults } from '../api/index';
 import { connect } from 'react-redux';
 import '../css/Board.css';
@@ -30,11 +29,10 @@ class Board extends Component {
     const wonClass   = this.props.won ? ` won-${this.props.wonLine}` : '';
     const drawClass  = this.props.draw ? ' draw' : '';
     const boardClass = 'board' + wonClass + drawClass;
-    const hasPlayerNames = validatePlayerNames(this.props.players.X, this.props.players.O).length > 0 ? false : true;
 
     return (
       <div className="boardContainer">
-        { hasPlayerNames &&
+        { this.props.players.X && this.props.players.O &&
           <div className={boardClass}>
             {
               Object.keys(this.props.board)

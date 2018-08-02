@@ -1,14 +1,13 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import { validatePlayerNames } from '../logic/logic';
 
 class Result extends Component {
   render () {
     let result = ''; 
     let { X, O } = this.props.players;
 
-    if(validatePlayerNames(X, O).length > 0) {
+    if(!this.props.players.X && !this.props.players.O) {
       result = `Please enter player names to begin.`
     } else {
       if (this.props.turn) {
