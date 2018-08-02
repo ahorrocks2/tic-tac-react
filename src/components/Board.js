@@ -62,14 +62,14 @@ class Board extends Component {
 }
 
 Board.propTypes = {
-  board: PropTypes.object.isRequired,
-  turn: PropTypes.string.isRequired,
+  board: PropTypes.object,
+  turn: PropTypes.string,
   won: PropTypes.string,
-  draw: PropTypes.bool.isRequired,
+  draw: PropTypes.bool,
   wonLine: PropTypes.string,
-  addSymbol: PropTypes.func.isRequired,
-  startAgain: PropTypes.func.isRequired,
-  players: PropTypes.object.isRequired
+  addSymbol: PropTypes.func,
+  startAgain: PropTypes.func,
+  players: PropTypes.object
 };
 
 export default connect(
