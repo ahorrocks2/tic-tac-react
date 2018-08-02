@@ -5,19 +5,20 @@ import {connect} from 'react-redux';
 class Result extends Component {
   render () {
     let result = ''; 
-    let { X, O } = this.props.players;
+    let { turn, won, draw, players } = this.props
+    let { X, O } =players;
 
     if(!X && !O) {
       result = `Please enter player names to begin.`
     } else {
-      if (this.props.turn) {
-        const turn = this.props.turn.toUpperCase();
-        result = `It's ${this.props.players[turn]}'s turn.`;
+      if (turn) {
+        const turn = turn.toUpperCase();
+        result = `It's ${players[turn]}'s turn.`;
       }
-      if (this.props.won) {
-        const won = this.props.won.toUpperCase();
-        result = `Yay! ${this.props.players[won]} won!`
-      } else if (this.props.draw) {
+      if (won) {
+        const won = won.toUpperCase();
+        result = `Yay! ${players[won]} won!`
+      } else if (draw) {
         result = 'We have a draw!';
       }
     }
